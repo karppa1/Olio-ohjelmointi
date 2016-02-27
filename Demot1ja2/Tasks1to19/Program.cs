@@ -11,7 +11,7 @@ namespace Tasks1to19
         static void Main(string[] args)
         {
 
-            Harjoitus15();
+            Harjoitus19();
 
             Console.ReadLine();
 
@@ -342,7 +342,7 @@ namespace Tasks1to19
         }
         // ------------
 
-        static void Harjoitus15()   // Kesken...
+        static void Harjoitus15()
         {
             int num;
 
@@ -366,12 +366,18 @@ namespace Tasks1to19
 
                 Console.WriteLine();
             }
-/*
+
             for (int i = 0; i < 2; i++)
             {
-                Console.WriteLine("*");
-            }
-            */
+                int empty = tree;
+                for (int j = 0; j <= empty; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                Console.Write("*");
+                Console.WriteLine();
+            }            
 
         }
         // ------------
@@ -463,10 +469,50 @@ namespace Tasks1to19
         }
         // ------------
 
-        static void Harjoitus19()
+        static void Harjoitus19()   // Kesken...
         {
+            bool done = false;
+            string[] sana = new string[5] { "k", "o", "i", "r", "a", };
+            string[] arvaus = new string[5] { "-", "-", "-", "-", "-", };
+            /*         
+            char[] sana = new char[5] { 'k', 'o', 'i', 'r', 'a' };
+            char[] arvaus = new char[5] { '-', '-', '-', '-', '-' };
+            */
+            int numero = 7;
+            
+            Console.WriteLine("*Hirsipuupeli*");
 
+            do
+            {
+                Console.WriteLine("Arvauksia jäljellä: " + numero);
+                Console.WriteLine("Arvattava sana: ");
+                for(int i = 0; i < 5; i++)
+                {
+                    Console.Write(arvaus[i]);
+                }
+                Console.WriteLine();
+                Console.WriteLine("Anna kirjain > ");
+                char kirjain = char.Parse(Console.ReadLine());
 
+                for (int i = 0; i < 5; i++)
+                {
+                    if (sana[i] == kirjain.ToString())
+                    {
+                        arvaus[i] = kirjain.ToString();
+                    }
+                }
+
+                numero--;
+                if(sana == arvaus) // Ei toimi!
+                {
+                    done = true;
+                }
+                if(numero == 0)
+                {
+                    done = true;
+                }
+
+            } while (!done);
 
         }
         // ------------
