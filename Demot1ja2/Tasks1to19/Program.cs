@@ -545,7 +545,7 @@ namespace Tasks1to19
                         Console.WriteLine("Arvattava sana oli " + testi2);
                         Console.WriteLine("\nPaina enter!");
                     }
-                    if (numero == 0)
+                    else if (numero == 0)
                     {
                         done = true;
                         Console.WriteLine("\nHävisit!");
