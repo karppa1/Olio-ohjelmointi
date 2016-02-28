@@ -469,47 +469,94 @@ namespace Tasks1to19
         }
         // ------------
 
-        static void Harjoitus19()   // Kesken...
+        static void Harjoitus19()
         {
             bool done = false;
             string[] sana = new string[5] { "k", "o", "i", "r", "a", };
             string[] arvaus = new string[5] { "-", "-", "-", "-", "-", };
-            /*         
-            char[] sana = new char[5] { 'k', 'o', 'i', 'r', 'a' };
-            char[] arvaus = new char[5] { '-', '-', '-', '-', '-' };
-            */
-            int numero = 7;
-            
+
+            int numero = 10;
+            string testi1 = "";
+
+            // Vertailua varten otetaan merkkijono talteen testi1-muuttujaan
+            for (int i = 0; i < sana.Length; i++)
+            {
+                testi1 += sana[i];
+            }
+
             Console.WriteLine("*Hirsipuupeli*");
+            Console.WriteLine();
 
             do
             {
                 Console.WriteLine("Arvauksia jäljellä: " + numero);
-                Console.WriteLine("Arvattava sana: ");
+                Console.WriteLine("\nArvattava sana: ");    // Tulostetaan arvattava sana merkki kerrallaan, alussa pelkkiä -----
                 for(int i = 0; i < 5; i++)
                 {
                     Console.Write(arvaus[i]);
                 }
+                bool ilmo = false;
                 Console.WriteLine();
                 Console.WriteLine("Anna kirjain > ");
-                char kirjain = char.Parse(Console.ReadLine());
+                string line = Console.ReadLine();
 
-                for (int i = 0; i < 5; i++)
+                // Testataan oikeat merkit ja painallukset
+                int number;
+                bool result1 = int.TryParse(line, out number);  // Jos numero niin error!
+                if (result1)
                 {
-                    if (sana[i] == kirjain.ToString())
+                    Console.WriteLine("\nError!");
+                    Console.WriteLine("Paina enter!");
+                    return;
+                }
+
+                char kirjain;
+                bool result2 = char.TryParse(line, out kirjain);    // Jos kirjain niin käytetään
+                if (result2)
+                {
+                    string testi2 = "";
+
+                    for (int i = 0; i < 5; i++)
                     {
-                        arvaus[i] = kirjain.ToString();
+                        if (sana[i] == kirjain.ToString())
+                        {
+                            arvaus[i] = kirjain.ToString();
+
+                            for(int j = 0; j < arvaus.Length; j++)
+                            {
+                                testi2 += arvaus[j];    // Vertailua varten otetaan arvattu merkkijono talteen testi2-muuttujaan
+                            }
+
+                            ilmo = true;
+                            Console.WriteLine("\nKirjain löytyi!");                            
+                        }                        
+                    }
+                    
+                    numero--;
+                    if (ilmo == false)
+                    {
+                        Console.WriteLine("\nKirjainta ei löytynyt!");
+                    }
+
+                    if (testi1 == testi2)   // Verrataan onko kysytty sana sama kuin arvattu
+                    {
+                        done = true;
+                        Console.WriteLine("\nOikein!");
+                        Console.WriteLine("Arvattava sana oli " + testi2);
+                        Console.WriteLine("\nPaina enter!");
+                    }
+                    if (numero == 0)
+                    {
+                        done = true;
+                        Console.WriteLine("\nHävisit!");
+                        Console.WriteLine("Paina enter!");
                     }
                 }
-
-                numero--;
-                if(sana == arvaus) // Ei toimi!
+                else
                 {
-                    done = true;
-                }
-                if(numero == 0)
-                {
-                    done = true;
+                    Console.WriteLine("Error!");    // Jos ei ole kirjain eikä numero niin error!
+                    Console.WriteLine("Paina enter!");
+                    return;
                 }
 
             } while (!done);
