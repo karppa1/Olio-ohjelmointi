@@ -42,7 +42,7 @@ namespace Task2
                     case 'k':
                     case 'K':
                         Power = true;
-                        Console.WriteLine("Pesukone on päällä");
+                        Console.WriteLine("Pesukone on päällä\n");
                         break;
                     case 'e':
                     case 'E':
@@ -57,6 +57,36 @@ namespace Task2
 
         public void valitseOhjelma()
         {
+            Console.WriteLine("Pesuohjelmat: ");
+            Console.WriteLine("1 Kirjopesu \n2 Valkopesu \n3 Hienopesu");
+            Console.WriteLine("\nValitse pesuohjelma");
+
+            string line = Console.ReadLine();
+
+            int number = 0;
+            bool result2 = int.TryParse(line, out number);
+            if (result2)
+            {
+                switch (number)
+                {
+                    case 1: Ohjelma = "Kirjopesu";
+                        break;
+
+                    case 2: Ohjelma = "Valkopesu";
+                        break;
+
+                    case 3: Ohjelma = "Hienopesu";
+                        break;
+
+                    default: Console.WriteLine("\nError! Virheellinen valinta!");
+                        break;
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("Virheellinen kierrosluku!\n");
+            }
 
         }
 
@@ -80,14 +110,14 @@ namespace Task2
 
         public void saadaAika()
         {
-            Console.WriteLine("Säädä ohjelman kesto (esim 1,15):");
+            Console.WriteLine("Säädä ohjelman kesto minuutteina (esim 75):");
             string line = Console.ReadLine();
 
-            double number = 0.0;
-            bool result2 = double.TryParse(line, out number);
+            int number = 0;
+            bool result2 = int.TryParse(line, out number);
             if (result2)
             {
-                Kesto = number;
+                Kesto = (double)number / 60;
             }
 
             else
@@ -107,11 +137,11 @@ namespace Task2
             {
                 tila = "OFF";
             }
-            Console.WriteLine("Pesukoneen tiedot:");
+            Console.WriteLine("\nPesukoneen tiedot:");
             Console.WriteLine("Virta: " + tila);
             Console.WriteLine("Pesuohjelma: " + Ohjelma);
             Console.WriteLine("Linkous: " + Kierros + " kierrosta/min");
-            Console.WriteLine("Pesuohjelman kesto: " + Kesto + " tuntia");
+            Console.WriteLine("Pesuohjelman kesto: {0:F2}{1}", Kesto, " tuntia");
         }
     }
 }
