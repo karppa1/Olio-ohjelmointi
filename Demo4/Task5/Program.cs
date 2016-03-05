@@ -10,10 +10,18 @@ namespace Task5
     {
         static void Main(string[] args)
         {
-            Radio radio = new Radio(false, 0, 0.0f);
+            Radio radio = new Radio(false, 0, 2000.0f);
             radio.printData();
+            Console.WriteLine();
+            radio.onOff();
 
-                Console.WriteLine("Laitetaanko radio päälle (K/E)?");   // Kesken...
+                while (radio.Power == true)
+                {
+                    radio.adjustVolume();
+                    radio.adjustFrequency();
+                    radio.printData();
+
+                Console.WriteLine("\nJatketaanko radion säätämistä (K/E)?");
                 string line = Console.ReadLine();
 
                 int number = 0;
@@ -22,27 +30,30 @@ namespace Task5
                 {
                     Console.WriteLine("Error! Et vastannut K tai E!");
                     radio.Power = false;
+                    return;
                 }
-                else radio.Power = true;
-
-                while (radio.Power == true)
-                {
-                    radio.adjustVolume();
-                    radio.adjustFrequency();
-                    radio.printData();
-
-                Console.WriteLine("Jatketaanko radion säätämistä (K/E)?");  // Kesken...
-                string line2 = Console.ReadLine();
-
-                int number2 = 0;
-                bool result2 = int.TryParse(line, out number2);
+                char vastaus;
+                bool result2 = char.TryParse(line, out vastaus);
                 if (result2)
                 {
-                    Console.WriteLine("Error! Et vastannut K tai E!");
-                    radio.Power = false;
+                    switch (vastaus)
+                    {
+                        case 'k':
+                        case 'K': radio.Power = true;
+                            break;
+
+                        case 'e':
+                        case 'E': radio.Power = false;
+                            break;
+
+                        default: Console.WriteLine("Error! Et vastannut K tai E!");
+                            radio.Power = false;
+                            break;
+                    }
                 }
-                else radio.Power = true;
             }
+
+            Console.ReadLine();
         }
     }
 }

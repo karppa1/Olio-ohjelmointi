@@ -35,10 +35,12 @@ namespace Task5
             {
                 if (value < 2000.0f)
                 {
+                    Console.WriteLine("Error! Väärä arvo!");
                     frequency = 2000.0f;
                 }
                 else if (value > 26000.0f)
                 {
+                    Console.WriteLine("Error! Väärä arvo!");
                     frequency = 26000.0f;
                 }
                 else frequency = value;
@@ -54,7 +56,32 @@ namespace Task5
 
         public void onOff()
         {
-            Power = true;
+            Console.WriteLine("Laitetaanko radio päälle (K/E)?");
+            string line = Console.ReadLine();
+            int number = 0;
+            bool result = int.TryParse(line, out number);
+            if (result)
+            {
+                Console.WriteLine("Error! Et vastannut K tai E!");
+                return;
+            }
+            char vastaus;
+            bool result2 = char.TryParse(line, out vastaus);
+            if (result2)
+            {
+                switch (vastaus)
+                {
+                    case 'k':
+                    case 'K': Power = true;
+                        break;
+                    case 'e':
+                    case 'E': Power = false;
+                        break;
+                    default: Console.WriteLine("Error! Et vastannut K tai E!");
+                        Power = false;
+                        break;
+                }
+            }
         }
 
         public void adjustVolume()
@@ -66,7 +93,7 @@ namespace Task5
             bool result = int.TryParse(line, out number);
             if (result)
             {
-                volume = number;
+                Volume = number;
             }
             else Console.WriteLine("Error!");
         }
@@ -80,7 +107,7 @@ namespace Task5
             bool result = float.TryParse(line, out number);
             if (result)
             {
-                frequency = number;
+                Frequency = number;
             }
             else Console.WriteLine("Error!");
         }
